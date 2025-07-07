@@ -1,5 +1,13 @@
 # mermaid検証
 
+## Mermaid 記法検証用サンプル
+
+このドキュメントは、各ドキュメント管理ツールの Mermaid 記法対応状況を検証するためのサンプル図表集です。
+
+### 1. フローチャート（Flowchart）
+
+#### 1.1 基本的なフローチャート
+
 ```mermaid
 graph TD
     A[開始] --> B{条件分岐}
@@ -8,6 +16,8 @@ graph TD
     C --> E[終了]
     D --> E
 ```
+
+#### 1.2 複雑なワークフロー
 
 ```mermaid
 graph TB
@@ -31,6 +41,61 @@ graph TB
     Success --> End([終了])
     AccessDenied --> End
 ```
+
+### 2. シーケンス図（Sequence Diagram）
+
+#### 2.1 基本的なシーケンス図
+
+```mermaid
+sequenceDiagram
+    participant User as ユーザー
+    participant Frontend as フロントエンド
+    participant API as APIサーバー
+    participant DB as データベース
+
+    User->>Frontend: ログイン要求
+    Frontend->>API: 認証リクエスト
+    API->>DB: ユーザー情報照会
+    DB-->>API: ユーザー情報返却
+    API-->>Frontend: 認証トークン
+    Frontend-->>User: ログイン成功
+```
+
+#### 2.2 エラーハンドリングを含むシーケンス図
+
+```mermaid
+sequenceDiagram
+    participant C as クライアント
+    participant LB as ロードバランサー
+    participant App as アプリケーション
+    participant Cache as Redis
+    participant DB as PostgreSQL
+
+    C->>LB: APIリクエスト
+    LB->>App: リクエスト転送
+
+    App->>Cache: キャッシュ確認
+    alt キャッシュヒット
+        Cache-->>App: キャッシュデータ返却
+        App-->>LB: レスポンス
+    else キャッシュミス
+        App->>DB: データ取得
+        alt DB正常
+            DB-->>App: データ返却
+            App->>Cache: キャッシュ更新
+            App-->>LB: レスポンス
+        else DBエラー
+            DB-->>App: エラー
+            App-->>LB: エラーレスポンス
+        end
+    end
+
+    LB-->>C: 最終レスポンス
+```
+
+### 3. クラス図（Class Diagram）
+
+#### 3.1 基本的なクラス図
 
 ```mermaid
 classDiagram
@@ -69,50 +134,7 @@ classDiagram
     User ||--o{ Comment : "writes"
 ```
 
-```mermaid
-sequenceDiagram
-    participant User as ユーザー
-    participant Frontend as フロントエンド
-    participant API as APIサーバー
-    participant DB as データベース
-
-    User->>Frontend: ログイン要求
-    Frontend->>API: 認証リクエスト
-    API->>DB: ユーザー情報照会
-    DB-->>API: ユーザー情報返却
-    API-->>Frontend: 認証トークン
-    Frontend-->>User: ログイン成功
-```
-
-```mermaid
-sequenceDiagram
-    participant C as クライアント
-    participant LB as ロードバランサー
-    participant App as アプリケーション
-    participant Cache as Redis
-    participant DB as PostgreSQL
-
-    C->>LB: APIリクエスト
-    LB->>App: リクエスト転送
-
-    App->>Cache: キャッシュ確認
-    alt キャッシュヒット
-        Cache-->>App: キャッシュデータ返却
-        App-->>LB: レスポンス
-    else キャッシュミス
-        App->>DB: データ取得
-        alt DB正常
-            DB-->>App: データ返却
-            App->>Cache: キャッシュ更新
-            App-->>LB: レスポンス
-        else DBエラー
-            DB-->>App: エラー
-            App-->>LB: エラーレスポンス
-        end
-    end
-
-    LB-->>C: 最終レスポンス
-```
+#### 3.2 継承関係を含むクラス図
 
 ```mermaid
 classDiagram
@@ -155,6 +177,8 @@ classDiagram
     User "1" --> "0..*" Document : owns
     Document "1" --> "0..*" MediaFile : contains
 ```
+
+### 4. ER 図（Entity Relationship Diagram）
 
 ```mermaid
 erDiagram
@@ -203,6 +227,8 @@ erDiagram
     DOCUMENTS }o--o{ TAGS : "tagged_with"
 ```
 
+### 5. ガントチャート（Gantt Chart）
+
 ```mermaid
 gantt
     title プロジェクト開発スケジュール
@@ -228,6 +254,8 @@ gantt
     本番リリース        :crit,    launch,   2024-03-29, 2024-03-30
 ```
 
+### 6. パイチャート（Pie Chart）
+
 ```mermaid
 pie title システムリソース使用率
     "CPU" : 35
@@ -235,6 +263,8 @@ pie title システムリソース使用率
     "ストレージ" : 22
     "ネットワーク" : 15
 ```
+
+### 7. Git Graph
 
 ```mermaid
 gitgraph
@@ -256,6 +286,8 @@ gitgraph
     tag: "v1.0.0"
 ```
 
+### 8. Journey Map
+
 ```mermaid
 journey
     title ユーザーのドキュメント作成体験
@@ -274,6 +306,8 @@ journey
       公開設定: 3: ユーザー
       チーム共有: 5: ユーザー
 ```
+
+### 9. State Diagram
 
 ```mermaid
 stateDiagram-v2
@@ -294,6 +328,8 @@ stateDiagram-v2
     }
 ```
 
+### 10. C4 Architecture Diagram
+
 ```mermaid
 C4Context
     title システムコンテキスト図
@@ -313,3 +349,43 @@ C4Context
     Rel(docSystem, figma, "埋め込み")
     Rel(docSystem, ai, "API呼び出し")
 ```
+
+### 11. 検証チェックリスト
+
+各ツールで以下の項目を確認してください：
+
+#### レンダリング確認
+
+* [ ] フローチャートが正しく表示される
+* [ ] シーケンス図が正しく表示される
+* [ ] クラス図が正しく表示される
+* [ ] ER 図が正しく表示される
+* [ ] ガントチャートが正しく表示される
+* [ ] パイチャートが正しく表示される
+* [ ] Git Graph が正しく表示される
+* [ ] Journey Map が正しく表示される
+* [ ] State Diagram が正しく表示される
+* [ ] C4 Diagram が正しく表示される
+
+#### 編集機能確認
+
+* [ ] Mermaid 記法でリアルタイム編集可能
+* [ ] 図表のエクスポートが可能（PNG/SVG 等）
+* [ ] 図表の埋め込みコードが取得可能
+* [ ] 図表のサイズ調整が可能
+
+#### AI 連携確認
+
+* [ ] AI が図表の内容を理解・解釈可能
+* [ ] AI による図表の自動生成・修正提案
+* [ ] 図表に基づくドキュメント生成
+
+#### パフォーマンス確認
+
+* [ ] 大きな図表でも適切な表示速度
+* [ ] 複数の図表を含むページの読み込み速度
+* [ ] 図表編集時のレスポンス性能
+
+***
+
+**使用方法**: 各ツールでこのファイル全体をコピー＆ペーストし、上記の図表が正しく表示されるかを確認してください。
