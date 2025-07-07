@@ -17,6 +17,9 @@ graph TD
     D --> E
 ```
 
+```mermaid
+```
+
 #### 1.2 複雑なワークフロー
 
 ```mermaid
@@ -41,6 +44,8 @@ graph TB
     Success --> End([終了])
     AccessDenied --> End
 ```
+
+
 
 ### 2. シーケンス図（Sequence Diagram）
 
@@ -93,6 +98,8 @@ sequenceDiagram
     LB-->>C: 最終レスポンス
 ```
 
+
+
 ### 3. クラス図（Class Diagram）
 
 #### 3.1 基本的なクラス図
@@ -129,10 +136,12 @@ classDiagram
         +delete()
     }
 
-    User ||--o{ Document : "creates"
-    Document ||--o{ Comment : "has"
-    User ||--o{ Comment : "writes"
+    User "1" --> "0..*" Document : creates
+    Document "1" --> "0..*" Comment : has
+    User "1" --> "0..*" Comment : writes
 ```
+
+
 
 #### 3.2 継承関係を含むクラス図
 
@@ -254,6 +263,8 @@ gantt
     本番リリース        :crit,    launch,   2024-03-29, 2024-03-30
 ```
 
+
+
 ### 6. パイチャート（Pie Chart）
 
 ```mermaid
@@ -263,6 +274,8 @@ pie title システムリソース使用率
     "ストレージ" : 22
     "ネットワーク" : 15
 ```
+
+
 
 ### 7. Git Graph
 
@@ -307,6 +320,8 @@ journey
       チーム共有: 5: ユーザー
 ```
 
+
+
 ### 9. State Diagram
 
 ```mermaid
@@ -327,6 +342,8 @@ stateDiagram-v2
         Completed --> [*]
     }
 ```
+
+
 
 ### 10. C4 Architecture Diagram
 
